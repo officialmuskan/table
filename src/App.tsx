@@ -26,7 +26,9 @@ export default function App() {
   const [value1, setValue1] = useState<number | null>(null);
 
   const [allArtworks, setAllArtworks] = useState<Artwork[]>([]);
+  console.log("All Artworks Length:", allArtworks);
   const [bulkSelectionTarget, setBulkSelectionTarget] = useState<number>(0);
+  console.log("Bulk Selection Target:", bulkSelectionTarget);
   const [isBulkSelectionActive, setIsBulkSelectionActive] = useState<boolean>(false);
 
   const op = useRef<OverlayPanel>(null);
@@ -153,7 +155,7 @@ export default function App() {
           
           <div style={{ display: "flex", gap: 8 }}>
             <Button
-              label="Apply"
+              label="Submit"
               size="small"
               onClick={handleBulkSelect}
               style={{ flex: 1 }}
@@ -176,6 +178,7 @@ export default function App() {
         showGridlines
         first={currentPageIndex * PAGE_SIZE}
         selection={getSelectedArtworksOnThisPage()}
+        selectionMode="multiple"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} artworks"
       >
@@ -207,7 +210,7 @@ export default function App() {
         <Column 
           header="Date" 
           body={(artwork) => {
-             `${artwork.date_start || "?"} - ${artwork.date_end}`;
+            return `${artwork.date_start} - ${artwork.date_end}`;
           }}
         />
       </DataTable>
